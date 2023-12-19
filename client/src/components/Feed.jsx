@@ -39,7 +39,7 @@ export default function Feed({ username }) {
   }, [username, user._id]);
 
   return (
-    <Box sx={{ padding: { xs: '20px', md: '30px' }, display : 'flex' , justifyContent : 'center' , alignContent : 'center' , backgroundColor : '#f0ebf5' }} >
+    <Box sx={{ padding: { xs: '20px', md: '30px' }, display : 'flex' , justifyContent : 'center' , alignContent : 'center'}} >
       <Box sx={{display : 'flex',flexDirection : 'column',alignItems : 'center' }} >
       {(!username || username === user.username) && <Share />}
         {loading && <p>Loading...</p>}

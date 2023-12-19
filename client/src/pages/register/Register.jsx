@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
 import BASE_URL from '../../.config';
 
 function Copyright(props) {
@@ -28,7 +29,6 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
 export default function SignInSide() {
 
     const navigate = useNavigate();
