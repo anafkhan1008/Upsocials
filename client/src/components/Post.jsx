@@ -13,6 +13,8 @@ import { useContext } from 'react';
 import ThumbUpAltTwoToneIcon from '@mui/icons-material/ThumbUpAltTwoTone';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import VolunteerActivismTwoToneIcon from '@mui/icons-material/VolunteerActivismTwoTone';
+import BASE_URL from '../.config';
+
 export default function Post({ post }) {
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
@@ -26,7 +28,7 @@ export default function Post({ post }) {
   
  const likeHandler = () => {
   try {
-    axios.put("http://localhost:4000/api/posts/" + post._id + "/like", { userId: currentUser._id });
+    axios.put(`${BASE_URL}/posts/` + post._id + "/like", { userId: currentUser._id });
   } catch (err) {}
   setLike(isLiked ? like - 1 : like + 1);
   setIsLiked(!isLiked);
@@ -35,7 +37,7 @@ export default function Post({ post }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/users?userId=${post.userId}`);
+        const res = await axios.get(`${BASE_URL}/users?userId=${post.userId}`);
         setUser(res.data);
        
       } catch (error) {
