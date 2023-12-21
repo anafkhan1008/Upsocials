@@ -17,6 +17,7 @@ const Edit = () => {
   const { user, dispatch } = useContext(AuthContext);
   const [updatedUser, setUpdatedUser] = useState({ ...user });
   const [profilePic, setProfilePic] = useState(null);
+  const [coverPic , setCoverPic] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,10 +30,10 @@ const Edit = () => {
   };
 
   useEffect(() => {
-    // Action to be performed after updatedUser changes
+
    
     setUpdatedUser(updatedUser)
-    // Any other necessary actions...
+   
   }, [updatedUser]);
   
 
@@ -55,6 +56,28 @@ const Edit = () => {
           updatedUserData = {
             ...updatedUserData,
             profilePicture: fileName,
+          };
+        }
+      } catch (err) {
+        console.log(err + 'Image upload error');
+      }
+    }
+    if (coverPic) {
+      const data = new FormData();
+      const fileName = Date.now() + '-' + coverPic.name;
+      data.append('name', fileName);
+      data.append('image', coverPic);
+      data.append('Content-Type', 'image/png');
+
+      try {
+        const res = await axios.post(`${BASE_URL}/users/upload`, data, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        if (res.status === 200) {
+          console.log('cover Image uploaded successfully');
+          updatedUserData = {
+            ...updatedUserData,
+            coverPicture: fileName,
           };
         }
       } catch (err) {
@@ -155,10 +178,12 @@ const Edit = () => {
           </Grid>
           <Grid item xs={4} >
             <Typography variant="subtitle1" color="initial">Update Cover Picture</Typography>
-            <TextField
-              id=""
-              type='file'
-            
+            <input
+            type="file"
+            id="file"
+            name="image"
+            accept="image/*"
+            onChange={(e) => setCoverPic(e.target.files[0])}
             />
           </Grid>
 

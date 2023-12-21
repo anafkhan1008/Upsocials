@@ -1,11 +1,12 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button , Typography } from '@mui/material';
 import React, { useContext, useEffect, useState , useRef } from 'react'
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import BASE_URL from '../.config';
 import { Link } from 'react-router-dom';
 import "../styles/rightbar.css"
-
+import Avatar from '@mui/material/Avatar';
+import Paper from '@mui/material/Paper';
 export const ProfileRightBar = ({user}) => {
 
     const [friends, setFriends] = useState([]);
@@ -56,27 +57,38 @@ export const ProfileRightBar = ({user}) => {
           {followed ? "Unfollow" : "Follow"}
         </Button>
         )}
-        <h4 className="rightbarTitle">User information</h4>
-        <div className="rightbarInfo">
-          <div className="rightbarInfoItem">
-            <span className="rightbarInfoKey">City:</span>
-            <span className="rightbarInfoValue">{user.city}</span>
-          </div>
-          <div className="rightbarInfoItem">
-            <span className="rightbarInfoKey">From:</span>
-            <span className="rightbarInfoValue">{user.from}</span>
-          </div>
-          <div className="rightbarInfoItem">
-            <span className="rightbarInfoKey">Relationship:</span>
-            <span className="rightbarInfoValue">
-              {user.relationship === 1
-                ? "Single"
-                : user.relationship === 1
-                ? "Married"
-                : "-"}
-            </span>
-          </div>
+        <Paper elevation={1} style={{ padding: '20px' }}>
+      <Typography variant="h6" gutterBottom className="rightbarTitle">
+        About
+      </Typography>
+      <div className="rightbarInfo">
+        <div className="rightbarInfoItem">
+          <Typography variant="subtitle1" component="span" >
+            City:
+          </Typography>
+          <Typography variant="body1" component="span" >
+            {user.city}
+          </Typography>
         </div>
+        <div className="rightbarInfoItem">
+          <Typography variant="subtitle1" component="span" className="rightbarInfoKey">
+            Country:
+          </Typography>
+          <Typography variant="body1" component="span" className="rightbarInfoValue">
+            {user.country}
+          </Typography>
+        </div>
+        <div className="rightbarInfoItem">
+          <Typography variant="subtitle1" component="span" className="rightbarInfoKey">
+            Relationship:
+          </Typography>
+          <Typography variant="body1" component="span" className="rightbarInfoValue">
+            {user.relationship === 1 ? 'Single' : user.relationship === 2 ? 'Married' : 'Not disclosed'}
+          </Typography>
+        </div>
+      </div>
+    </Paper>
+       
         <h4 className="rightbarTitle">User friends</h4>
         <div className="rightbarFollowings">
           {friends.map((friend) => (
@@ -85,15 +97,12 @@ export const ProfileRightBar = ({user}) => {
               style={{ textDecoration: "none" }}
             >
               <div className="rightbarFollowing">
-                <img
-                  src={
-                    friend.profilePicture
-                      ? friend.profilePicture
-                      : " "
-                  }
-                  alt=""
-                  className="rightbarFollowingImg"
-                />
+              <Avatar 
+              variant='square'
+
+  src={friend.profilePicture ? `https://upsocial-image-bucket.s3.ap-south-1.amazonaws.com/${friend.profilePicture}` : " "}
+  sx={{ width: 100, height: 100 , margin : "5px" }}
+/>
                 <span className="rightbarFollowingName">{friend.username}</span>
               </div>
             </Link>

@@ -71,7 +71,7 @@ export default function Share() {
             <Grid item>
               <Avatar
                 alt="Remy Sharp"
-                src={user ? user.profilePicture : " "}
+                src={user ? `https://upsocial-image-bucket.s3.ap-south-1.amazonaws.com/${user.profilePicture}` : " "}
                 sx={{ width: 56, height: 56 }}
               />
             </Grid>

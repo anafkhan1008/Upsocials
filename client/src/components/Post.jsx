@@ -54,7 +54,7 @@ export default function Post({ post }) {
         avatar= {<Link to = {`/profile/${user.username}`}> 
           <Avatar
   alt="Profile Picture"
-  src={user ? user.profilePicture : ''}
+  src={`https://upsocial-image-bucket.s3.ap-south-1.amazonaws.com/${user.profilePicture}`}
   style={{
     borderRadius: '50%',
     width: '50px',

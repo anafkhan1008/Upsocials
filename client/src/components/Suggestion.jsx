@@ -35,19 +35,15 @@ function Suggestion() {
         <div>
         {users.map((user) => (
           <div key={user._id}>
-              <Paper sx={{display : 'flex' , justifyContent : 'space-between', borderRadius : '25px'  , marginBottom : "10px" , maxWidth : "300px"}}>
+              <Paper sx={{display : 'flex' , justifyContent : 'space-between', borderRadius : '25px'  , marginBottom : "10px" , maxWidth : "350px"}}>
                 <Link to={`profile/${user.username}`}>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" width = "50px" height="50px" />
+              <Avatar  src={`https://upsocial-image-bucket.s3.ap-south-1.amazonaws.com/${user.profilePicture}`} width = "50px" height="50px"  />
               </Link>
               <Box sx={{display : 'flex' , justifyContent : 'center' , alignItems : 'center' , width : '100%'}}>
                 <Typography variant="h6" color="initial" sx={{margin : 'auto'}}>{user.username}</Typography>
               </Box>
               
               </Paper>
-             
-            
-          
-          
           </div>
         ))}
       </div>

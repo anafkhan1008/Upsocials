@@ -46,7 +46,7 @@ export default function Profile() {
                 <Grid item className="profileCover" xs={12}>
                   <img
                     className="profileCoverImg"
-                    src={user.coverPicture ? user.coverPicture : "/static/cover.jpg"}
+                    src={user.coverPicture ? `https://upsocial-image-bucket.s3.ap-south-1.amazonaws.com/${user.coverPicture}` : "/static/cover.jpg"}
                     alt=""
                   />
 
