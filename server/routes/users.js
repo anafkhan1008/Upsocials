@@ -2,6 +2,29 @@ const User = require("../models/User");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+const AWS = require('aws-sdk');
+
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+  region: 'ap-south-1',
+});
+
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: 'upsocial-image-bucket',
+    acl: 'public-read', 
+    key: function (req, file, cb) {
+      const filename = req.body.name;
+      cb(null, filename);
+    },
+  }),
+});
+
 
 
 //get all the users 
@@ -15,31 +38,57 @@ router.get("/all" , async (req , res) =>{
     console.log(err)
   }
 })
-//update user
-router.put("/:id", async (req, res) => {
-  if (req.body.userId === req.params.id || req.body.isAdmin) {
-    if (req.body.password) {
-      try {
-        const salt = await bcrypt.genSalt(10);
-        req.body.password = await bcrypt.hash(req.body.password, salt);
-      } catch (err) {
-        return res.status(500).json(err);
-      }
-    }
-    try {
-      const user = await User.findByIdAndUpdate(req.params.id, {
-        $set: req.body,
-      });
-      res.status(200).json("Account has been updated");
-    } catch (err) {
-      return res.status(500).json(err);
-    }
-  } else {
-    return res.status(403).json("You can update only your account!");
+// update user
+// router.put("/:id", async (req, res) => {
+//   if (req.body.userId === req.params.id || req.body.isAdmin) {
+//     if (req.body.password) {
+//       try {
+//         const salt = await bcrypt.genSalt(10);
+//         req.body.password = await bcrypt.hash(req.body.password, salt);
+//       } catch (err) {
+//         return res.status(500).json(err);
+//       }
+//     }
+//     try {
+//       const user = await User.findByIdAndUpdate(req.params.id, {
+//         $set: req.body,
+//       });
+//       res.status(200).json("Account has been updated");
+//     } catch (err) {
+//       return res.status(500).json(err);
+//     }
+//   } else {
+//     return res.status(403).json("You can update only your account!");
+//   }
+// });
+
+router.post('/upload', upload.single('image'), async (req, res) => {
+  console.log("uploading.........")
+  try {
+    res.status(200).json({ imageUrl: req.file.location });
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
-///
 
+
+
+// Express router handling the PUT request
+router.put('/:id', async (req, res) => {
+  const userId = req.params.id;
+  const userData = req.body;
+  console.log(userData)
+  try {
+    const updatedUser = await User.findByIdAndUpdate(userId, userData, { new: true });
+     console.log(updatedUser)
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json({ message: 'User information updated successfully', user: updatedUser });
+  } catch (err) {
+    res.status(500).json({ message: 'Error updating user information', error: err.message });
+  }
+});
 
 
 
@@ -74,7 +123,6 @@ router.get("/", async (req, res) => {
 });
 
 
-//get all following of user
 
 router.get("/following/:userId" , async(req , res) =>{
   const userId = req.params.userId;
@@ -102,7 +150,9 @@ router.get("/following/:userId" , async(req , res) =>{
 
 })
 
-//follow a user
+
+
+
 
 router.put("/:id/follow", async (req, res) => {
   if (req.body.userId !== req.params.id) {
@@ -166,5 +216,15 @@ router.put("/:id/unfollow", async (req, res) => {
       res.status(500).json({ message: 'Server Error' });
     }
   });
+
+  
+  router.post('/upload', upload.single('image'), async (req, res) => {
+    try {
+      res.status(200).json({ imageUrl: req.file.location });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+  
 
 module.exports = router;

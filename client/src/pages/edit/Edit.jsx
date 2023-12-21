@@ -10,15 +10,13 @@ import {
   MenuItem,
 } from '@mui/material';
 import { AuthContext } from '../../context/AuthContext';
+import axios from 'axios'
+import BASE_URL from '../../.config';
 
 const Edit = () => {
   const { user, dispatch } = useContext(AuthContext);
   const [updatedUser, setUpdatedUser] = useState({ ...user });
- 
-
-  useEffect(() => {
-    setUpdatedUser({ ...user }); 
-  }, [user]);
+  const [profilePic, setProfilePic] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,17 +28,55 @@ const Edit = () => {
     setUpdatedUser({ ...updatedUser, relationship: value });
   };
 
+  useEffect(() => {
+    // Action to be performed after updatedUser changes
+   
+    setUpdatedUser(updatedUser)
+    // Any other necessary actions...
+  }, [updatedUser]);
+  
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    let updatedUserData = { ...updatedUser };
+    if (profilePic) {
+      const data = new FormData();
+      const fileName = Date.now() + '-' + profilePic.name;
+      data.append('name', fileName);
+      data.append('image', profilePic);
+      data.append('Content-Type', 'image/png');
+
+      try {
+        const res = await axios.post(`${BASE_URL}/users/upload`, data, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        if (res.status === 200) {
+          console.log('Image uploaded successfully');
+          updatedUserData = {
+            ...updatedUserData,
+            profilePicture: fileName,
+          };
+        }
+      } catch (err) {
+        console.log(err + 'Image upload error');
+      }
+    }
+
     try {
-      // Call API to update user data
-    //   const updated = await updateUser(updatedUser); // Function that updates user data, replace this with your actual API call
-    //   dispatch({ type: 'UPDATE_SUCCESS', payload: updated }); // Update user context with new data
-     // Redirect to the user's profile page after successful update
+      console.log(updatedUser)
+      const res = await axios.put(`${BASE_URL}/users/${user._id}`, updatedUserData);
+
+      if (res.status === 200) {
+        dispatch({ type: 'UPDATE_PROFILE', payload: res.data.user });
+        console.log('User successfully updated');
+      } else {
+        console.log(res.status);
+      }
     } catch (error) {
       console.error(error);
-      // Handle error
     }
+
+ 
   };
 
   return (
@@ -68,7 +104,25 @@ const Edit = () => {
               onChange={handleInputChange}
             />
           </Grid>
-          {/* Add other fields for profile information */}
+          <Grid item xs={4}>
+            <TextField
+              fullWidth
+              label="City"
+              name="city"
+              value={updatedUser.city}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              fullWidth
+              label="About"
+              name="about"
+              value={updatedUser.about}
+              onChange={handleInputChange}
+            />
+          </Grid>
+      
           <Grid item xs={4}>
             <FormControl fullWidth>
               <Select
@@ -91,9 +145,12 @@ const Edit = () => {
           </Grid>
           <Grid item xs={4} >
             <Typography variant="subtitle1" color="initial">Update profile Picture</Typography>
-            <TextField
-              id=""
-              type='file'
+            <input
+            type="file"
+            id="file"
+            name="image"
+            accept="image/*"
+            onChange={(e) => setProfilePic(e.target.files[0])}
             />
           </Grid>
           <Grid item xs={4} >
@@ -101,6 +158,7 @@ const Edit = () => {
             <TextField
               id=""
               type='file'
+            
             />
           </Grid>
 

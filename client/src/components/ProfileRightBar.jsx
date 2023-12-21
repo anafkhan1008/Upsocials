@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import BASE_URL from '../.config';
 import { Link } from 'react-router-dom';
-
+import "../styles/rightbar.css"
 
 export const ProfileRightBar = ({user}) => {
 

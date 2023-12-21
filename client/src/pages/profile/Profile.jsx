@@ -25,15 +25,13 @@ export default function Profile() {
     fetchUser();
 
   }, [username]);
+  
   console.log(user)
   return (
     <Grid container>
-      {/* Topbar */}
-      <Grid item xs={12}>
+    
         <Topbar />
-      </Grid>
-
-
+ 
       <Grid item container className="profile">
 
         <Grid item xs={12} md={2}>
@@ -54,8 +52,7 @@ export default function Profile() {
 
                   <Avatar
                     className="profileUserImg"
-                    alt="Remy Sharp"
-                    src={user ? user.profilePicture : " "}
+                    src={user ? `https://upsocial-image-bucket.s3.ap-south-1.amazonaws.com/${user.profilePicture}` : " "}
                     sx={{ width: 150, height: 150 }}
                   />
                 </Grid>
@@ -70,10 +67,10 @@ export default function Profile() {
 
             {/* Profile Right Bottom */}
             <Grid container className="profileRightBottom">
-              <Grid item xs={6}>
-                  <Feed username={username} />
+              <Grid item xs={8}  className="">
+                  <Feed username={username}/>
               </Grid>
-             <Grid item xs={6}>
+             <Grid item xs={4}>
                <Rightbar user={user} />
              </Grid>
             </Grid>
