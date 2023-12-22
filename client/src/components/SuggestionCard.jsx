@@ -34,7 +34,7 @@ function SuggestionCard({user}) {
       };
   return (
     
-         <Paper elevation={0} sx={{display : 'flex' , justifyContent : 'space-between'  , marginBottom : "5px" , maxWidth : "400px"}}>
+         <Paper elevation={0} sx={{display : 'flex' , justifyContent : 'space-between'  , marginBottom : "10px" , maxWidth : "400px"}}>
                 <Link to={`profile/${user.username}`}>
               <Avatar  src={`https://upsocial-image-bucket.s3.ap-south-1.amazonaws.com/${user.profilePicture}`} variant='square' width = "50px" height="50px"  />
               </Link>

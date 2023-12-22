@@ -58,7 +58,7 @@ export default function SignInSide() {
 
   return (
    
-      <Grid container component="main">
+      <Grid container component="main"  sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
           item
