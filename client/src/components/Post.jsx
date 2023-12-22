@@ -13,6 +13,7 @@ import { useContext } from 'react';
 import ThumbUpAltTwoToneIcon from '@mui/icons-material/ThumbUpAltTwoTone';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import VolunteerActivismTwoToneIcon from '@mui/icons-material/VolunteerActivismTwoTone';
+import Comment from './Comment';
 import BASE_URL from '../.config';
 
 export default function Post({ post }) {
@@ -20,6 +21,7 @@ export default function Post({ post }) {
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
   const { user: currentUser } = useContext(AuthContext);
+  const [open , setOpen] = useState(false);
 
   useEffect(() => {
     setIsLiked(post.likes.includes(currentUser._id));
@@ -48,6 +50,7 @@ export default function Post({ post }) {
   }, [post.userId]);
 
   return (
+    <>
     <Card className="post" sx={{ boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)' }}>
       <CardHeader sx={{background : "white"}}
       
@@ -94,12 +97,13 @@ export default function Post({ post }) {
         <Typography variant="body2" component="span" className="postLikeCounter">{like} people like it</Typography>
        </div>
 
-        <IconButton >
-          <CommentIcon sx={{color : "gray"}} />
+        <IconButton onClick={()=>{setOpen(!open)}} >
+        <CommentIcon sx={{ color: open ? '#3f0169' : 'gray' }} />
         </IconButton>
-      
       
       </div>
     </Card>
+    {open ? (<Comment/>) : ("")}
+    </>
   );
 }

@@ -11,6 +11,7 @@ const multer = require("multer");
 const bodyParser = require("body-parser"); // Import body-parser
 const cors = require("cors");
 const AWS = require('aws-sdk');
+const Port = process.env.PORT || 4000;
 dotenv.config();
 
 
@@ -41,6 +42,6 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 
-app.listen(process.env.PORT, () => {
+app.listen(Port, () => {
   console.log(`App is running on port ${process.env.PORT}`);
 });
