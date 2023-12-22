@@ -64,7 +64,7 @@ export default function Share() {
   });
 
   return (
-    <Paper sx={{ padding: "20px", borderRadius: "10px", width: "700px", margin : "20px"}}>
+    <Paper sx={{display : 'flex', padding: "30px", borderRadius: "10px", maxWidth: "700px", margin : "20px" , top : "30px" , position : 'relative'}}>
       <Grid container className="share" >
         <Grid item xs={12} className="shareWrapper">
           <Grid container mb={6} alignItems="center" spacing={2}>
@@ -86,12 +86,13 @@ export default function Share() {
           </Grid>
           <Divider />
           {file && (
-            <Grid container alignItems="center" className="shareImgContainer">
+            <Grid container alignItems="center" >
               <Grid item>
                 <img
                   className="shareImg"
                   src={URL.createObjectURL(file)}
                   alt=""
+                  style={{ maxWidth: '600px', height: 'auto' }}
                 />
               </Grid>
               <Grid item>
@@ -102,11 +103,11 @@ export default function Share() {
             </Grid>
           )}
           <form  onSubmit={submitHandler}  >
-            <Grid container alignItems="center" justifyContent="space-around" mt={3} mb={3}>
-              <Grid item>
+            <Grid container mx={3}>
+              <Grid item m={2}>
                 <Button
                   component="label"
-                  sx={{ color: "#fa004b", borderColor: "#fa004b" }}
+                  sx={{ color: "#fa004b", borderColor: "#fa004b" , backgroundColor : '#ffff'  }}
                   variant="outlined"
                   startIcon={<PermMediaIcon />}
                 >
@@ -120,10 +121,10 @@ export default function Share() {
                   />
                 </Button>
               </Grid>
-              <Grid item>
+              <Grid item m={2}>
                 <Button
                   component="label"
-                  sx={{ color: "#079902", borderColor: "##079902" }}
+                  sx={{ color: "#079902", borderColor: "##079902" , backgroundColor : '#ffff' }}
                   variant="outlined"
                   startIcon={<LabelImportantIcon />}
                 >
@@ -132,10 +133,10 @@ export default function Share() {
                 </Button>
               </Grid>
 
-              <Grid item>
+              <Grid item m={2}>
                 <Button
                   component="label"
-                  sx={{ color: "#023499", borderColor: "#023499" }}
+                  sx={{ color: "#023499", borderColor: "#023499" , backgroundColor : '#ffff' }}
                   variant="outlined"
                   startIcon={<LocationOnIcon />}
                 >
@@ -143,10 +144,10 @@ export default function Share() {
                   <VisuallyHiddenInput />
                 </Button>
               </Grid>
-              <Grid item>
+              <Grid item m={2}>
                 <Button
                   component="label"
-                  sx={{ color: "#aeba02", borderColor: "#aeba02" }}
+                  sx={{ color: "#aeba02", borderColor: "#aeba02" , backgroundColor : '#ffff' }}
                   variant="outlined"
                   startIcon={<AddReactionIcon />}
                 >

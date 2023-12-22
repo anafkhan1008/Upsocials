@@ -5,6 +5,7 @@ import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
 import Register from "./pages/register/Register";
 import Edit from './pages/edit/Edit';
+
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import {
   createBrowserRouter,
@@ -19,6 +20,7 @@ import {
 import { BrowserRouter  } from "react-router-dom";
 import { AuthContext } from './context/AuthContext';
 import { useContext } from 'react';
+import Suggestions from './pages/suggestion/Suggestions';
 
 const theme = createTheme({
   palette: {
@@ -59,9 +61,9 @@ function App() {
           <Route path="/" element={user ? <Home /> : <Navigate to="/register" />} />
           <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
           <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
-          {/* Profile routes */}
           <Route path="/profile/:username" element={<Profile />} />
-          <Route path="/profile/edit/:username" element={<Edit />} />
+          <Route path="/edit" element={<Edit />} />
+          <Route path ="/suggestion" element ={<Suggestions/>} />
         </Routes>
   </BrowserRouter>
 

@@ -8,7 +8,7 @@ export default function Rightbar({ user }) {
  
   const HomeRightbar = () => {
     return (
-      <Box sx={{display : 'flex' ,flexDirection : 'column', justifyContent : 'center', alignItems : 'center'}}>
+      <Box  sx={{display: { xs: 'none', sm: 'none' , md : 'block' }}} >
         <div className="birthdayContainer" display={{xs : 'none' , md : 'block'}}>
           <img className="birthdayImg" src="assets/gift.png" alt="" />
           <span className="birthdayText">

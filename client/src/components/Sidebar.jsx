@@ -23,18 +23,21 @@ import { Link } from 'react-router-dom';
 export default function Sidebar() {
   return (
     <Box sx={{
-      width: '100%',
-      maxWidth: 250,
-      bgcolor: 'background.paper',
+   
+    
       zIndex: 1, 
-
     position:"sticky",
-    top : "65px"
+    top : "65px",
+    display: { xs: 'none', sm: 'none' , md : 'block' }
     }}
+
+
+
+
   
      >
        
-      <List sx={{padding : {sm : "10px" , xs : "5px" , md : '15px'}}}>
+      <List sx={{padding : {sm : "10px" , md : '15px'}}}>
       <ListItem disablePadding>
             <ListItemButton component = {Link} to="/">
               <ListItemIcon>

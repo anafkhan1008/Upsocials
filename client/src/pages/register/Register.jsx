@@ -58,14 +58,14 @@ export default function SignInSide() {
 
   return (
    
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container component="main">
         <CssBaseline />
         <Grid
           item
-          xs={false}
-          sm={4}
+        xs={0}
+          sm={0}
           md={7}
-          padding="50px"
+        
           >
              <Grid container sx={{ position: 'relative', height: '100%' }}>
             <Grid item xs={6} sm={12}>

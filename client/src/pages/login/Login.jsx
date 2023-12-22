@@ -74,9 +74,9 @@ export default function SignInSide() {
         <Grid
           item
           xs={false}
-          sm={4}
+          sm={0}
           md={7}
-          padding="50px"
+      
           >
              <Grid container sx={{ position: 'relative', height: '100%' }}>
             <Grid item xs={6} sm={12}>
