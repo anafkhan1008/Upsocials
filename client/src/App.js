@@ -22,6 +22,7 @@ import { AuthContext } from './context/AuthContext';
 import { useContext } from 'react';
 import Suggestions from './pages/suggestion/Suggestions';
 
+
 const theme = createTheme({
   palette: {
     primary: {

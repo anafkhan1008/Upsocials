@@ -34,7 +34,7 @@ const StyledAppBar = styled(AppBar)({
   color: "#ffff",
   boxShadow: "none",
   borderBottom: "1px solid #e0e0e0",
-  padding : "5px"
+
 });
 
 const StyledToolbar = styled(Toolbar)({
@@ -60,9 +60,9 @@ const StyledInputBase = styled(InputBase)({
 });
 
 const Topbar = () => {
-  const location = useLocation();
+
   const { user, dispatch } = useContext(AuthContext);
-  console.log(location.pathname);
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -75,11 +75,6 @@ const Topbar = () => {
     setAnchorEl(null);
   };
 
-  const [isProfilePage, setIsProfilePage] = useState(false);
-
-  useEffect(() => {
-    setIsProfilePage(location.pathname === `/profile/${user.username}`);
-  }, [location.pathname, user.username]);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -113,9 +108,9 @@ const Topbar = () => {
        
           <Link to="/suggestion">
            <IconButton sx={{ margin: "5px" }}>
-            <Badge badgeContent={1} color="secondary">
-              <PeopleIcon sx={{ color: "#ffff" }} />
-            </Badge>
+          
+              <PeopleIcon sx={{ color: "#f8fa93"}} />
+          
           </IconButton>
           </Link>
           <IconButton sx={{ margin: "5px" }}>
@@ -186,7 +181,7 @@ const Topbar = () => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={handleClose}>
-          {!isProfilePage ? (
+       
             <Link
               to={`profile/${user.username}`}
               style={{
@@ -199,9 +194,7 @@ const Topbar = () => {
               <Avatar />
               Profile
             </Link>
-          ) : (
-            ""
-          )}
+     
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <Link

@@ -22,7 +22,6 @@ export default function Home() {
       </Grid>
       <Grid item xs={0} sm={3}>
        <Rightbar/>
-     
      </Grid>
   </Grid>
   );
