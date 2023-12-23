@@ -183,7 +183,7 @@ const Topbar = () => {
         <MenuItem onClick={handleClose}>
        
             <Link
-              to={`profile/${user.username}`}
+              to={`/profile/${user.username}`}
               style={{
                 display: "flex",
                 flexDirection: "row",

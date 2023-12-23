@@ -69,7 +69,7 @@ function Suggestion() {
               borderRadius : "10px"
             }}
           >
-            <Link to={`profile/${user.username}`}>
+            <Link to={`/profile/${user.username}`}>
               <Avatar
                 src={`https://upsocial-image-bucket.s3.ap-south-1.amazonaws.com/${user.profilePicture}`}
                 width="60px"

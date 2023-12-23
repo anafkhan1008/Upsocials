@@ -12,13 +12,17 @@ import {
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios'
 import BASE_URL from '../../.config';
+import Topbar from '../../components/Topbar';
+import { useNavigate } from "react-router-dom";
+
+
 
 const Edit = () => {
   const { user, dispatch } = useContext(AuthContext);
   const [updatedUser, setUpdatedUser] = useState({ ...user });
   const [profilePic, setProfilePic] = useState(null);
   const [coverPic , setCoverPic] = useState(null);
-
+let navigate = useNavigate();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUpdatedUser({ ...updatedUser, [name]: value });
@@ -92,6 +96,7 @@ const Edit = () => {
       if (res.status === 200) {
         dispatch({ type: 'UPDATE_PROFILE', payload: res.data.user });
         console.log('User successfully updated');
+        return navigate(`/profile/${updatedUser.username}`)
       } else {
         console.log(res.status);
       }
@@ -104,12 +109,14 @@ const Edit = () => {
 
   return (
     <Container>
-      <form onSubmit={handleFormSubmit}>
+      <Topbar/>
+      <Container maxWidth="md" sx={{position : 'relative' , top : "100px"}}>
+        <form onSubmit={handleFormSubmit} >
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="h6">Edit Profile</Typography>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={6} >
             <TextField
               fullWidth
               label="Username"
@@ -118,7 +125,7 @@ const Edit = () => {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
               label="Email"
@@ -127,7 +134,16 @@ const Edit = () => {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Country"
+              name="country"
+              value={updatedUser.country}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
               label="City"
@@ -136,7 +152,7 @@ const Edit = () => {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
               label="About"
@@ -146,7 +162,7 @@ const Edit = () => {
             />
           </Grid>
       
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
               <Select
                 value={updatedUser.relationship || ''}
@@ -166,7 +182,7 @@ const Edit = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={4} >
+          <Grid item xs={12} >
             <Typography variant="subtitle1" color="initial">Update profile Picture</Typography>
             <input
             type="file"
@@ -176,7 +192,7 @@ const Edit = () => {
             onChange={(e) => setProfilePic(e.target.files[0])}
             />
           </Grid>
-          <Grid item xs={4} >
+          <Grid item xs={12} >
             <Typography variant="subtitle1" color="initial">Update Cover Picture</Typography>
             <input
             type="file"
@@ -194,6 +210,8 @@ const Edit = () => {
           </Grid>
         </Grid>
       </form>
+      </Container>
+      
     </Container>
   );
 };

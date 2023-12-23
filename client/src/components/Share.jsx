@@ -65,8 +65,8 @@ export default function Share() {
 
   return (
     <Paper sx={{display : 'flex', padding: "30px", borderRadius: "10px", maxWidth: "700px", margin : "20px" , top : "30px" , position : 'relative'}}>
-      <Grid container className="share" >
-        <Grid item xs={12} className="shareWrapper">
+      <Grid container  >
+        <Grid item xs={12} >
           <Grid container mb={6} alignItems="center" spacing={2}>
             <Grid item>
               <Avatar
