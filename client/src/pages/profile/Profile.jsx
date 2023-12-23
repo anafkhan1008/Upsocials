@@ -65,14 +65,15 @@ export default function Profile() {
               </Grid>
             </Grid>
 
-            {/* Profile Right Bottom */}
-            <Grid container className="profileRightBottom">
-              <Grid item xs={8}  className="">
-                  <Feed username={username}/>
-              </Grid>
-             <Grid item xs={4}>
+            <Grid container direction="row-reverse" >
+             
+             <Grid item xs={12} md={4} >
                <Rightbar user={user} />
              </Grid>
+             <Grid item xs={12} md = {8}>
+                  <Feed username={username}/>
+              </Grid>
+
             </Grid>
           </Grid>
         </Grid>

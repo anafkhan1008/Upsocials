@@ -1,4 +1,4 @@
-import { Box, Button , Typography } from '@mui/material';
+import { Box, Button , Grid, Typography } from '@mui/material';
 import React, { useContext, useEffect, useState , useRef } from 'react'
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
@@ -51,43 +51,56 @@ export const ProfileRightBar = ({user}) => {
       };
 
     return (
-      <Box sx={{ display: { xs: 'none', md: 'block' } }} >
-        {user.username !== currentUser.username && (
+      <Box sx={{ display: {  md: 'block' } }} >
+        <Grid container>
+          <Grid item xs={12} m={2} >
+  {user.username !== currentUser.username && (
         <Button onClick={handleClick} variant="contained">
           {followed ? "Unfollow" : "Follow"}
         </Button>
         )}
+          </Grid>
+         
+        </Grid>
+       
         <Paper elevation={1} style={{ padding: '20px' }}>
-      <Typography variant="h6" gutterBottom className="rightbarTitle">
-        About
-      </Typography>
-      <div className="rightbarInfo">
-        <div className="rightbarInfoItem">
-          <Typography variant="subtitle1" component="span" >
-            City:
-          </Typography>
-          <Typography variant="body1" component="span" >
-            {user.city}
-          </Typography>
-        </div>
-        <div className="rightbarInfoItem">
-          <Typography variant="subtitle1" component="span" className="rightbarInfoKey">
-            Country:
-          </Typography>
-          <Typography variant="body1" component="span" className="rightbarInfoValue">
-            {user.country}
-          </Typography>
-        </div>
-        <div className="rightbarInfoItem">
-          <Typography variant="subtitle1" component="span" className="rightbarInfoKey">
-            Relationship:
-          </Typography>
-          <Typography variant="body1" component="span" className="rightbarInfoValue">
-            {user.relationship === 1 ? 'Single' : user.relationship === 2 ? 'Married' : 'Not disclosed'}
-          </Typography>
-        </div>
+  <Typography variant="h6" gutterBottom className="rightbarTitle">
+    About
+  </Typography>
+  <Grid container spacing={2} className="rightbarInfo">
+    <Grid item xs={12} sm={6} md={12}>
+      <div className="rightbarInfoItem">
+        <Typography variant="subtitle1" component="span">
+          City:
+        </Typography>
+        <Typography variant="body1" component="span">
+          {user.city}
+        </Typography>
       </div>
-    </Paper>
+    </Grid>
+    <Grid item xs={12} sm={6} md={12}>
+      <div className="rightbarInfoItem">
+        <Typography variant="subtitle1" component="span" className="rightbarInfoKey">
+          Country:
+        </Typography>
+        <Typography variant="body1" component="span" className="rightbarInfoValue">
+          {user.country}
+        </Typography>
+      </div>
+    </Grid>
+    <Grid item xs={12} sm={6} md={12}>
+      <div className="rightbarInfoItem">
+        <Typography variant="subtitle1" component="span" className="rightbarInfoKey">
+          Relationship:
+        </Typography>
+        <Typography variant="body1" component="span" className="rightbarInfoValue">
+          {user.relationship === 1 ? 'Single' : user.relationship === 2 ? 'Married' : 'Not disclosed'}
+        </Typography>
+      </div>
+    </Grid>
+  </Grid>
+</Paper>
+      
        
         <h4 className="rightbarTitle">User friends</h4>
         <div className="rightbarFollowings">

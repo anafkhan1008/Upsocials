@@ -64,7 +64,7 @@ export default function Share() {
   });
 
   return (
-    <Paper sx={{display : 'flex', padding: "30px", borderRadius: "10px", maxWidth: "700px", margin : "20px" , top : "30px" , position : 'relative'}}>
+    <Paper sx={{display : 'flex' , padding : {xs : "10px" , md : "20px"}, borderRadius: "10px", maxWidth: "700px", margin : {xs : "5px 5px 15px 5px" , md : "10px 10px 20px 10px"} , top : "40px" , position : 'relative'}}>
       <Grid container  >
         <Grid item xs={12} >
           <Grid container mb={6} alignItems="center" spacing={2}>
@@ -84,7 +84,7 @@ export default function Share() {
               />
             </Grid>
           </Grid>
-          <Divider />
+      
           {file && (
             <Grid container alignItems="center" >
               <Grid item>
@@ -104,7 +104,7 @@ export default function Share() {
           )}
           <form  onSubmit={submitHandler}  >
             <Grid container mx={3}>
-              <Grid item m={2}>
+              <Grid item m={1}>
                 <Button
                   component="label"
                   sx={{ color: "#fa004b", borderColor: "#fa004b" , backgroundColor : '#ffff'  }}
@@ -121,7 +121,7 @@ export default function Share() {
                   />
                 </Button>
               </Grid>
-              <Grid item m={2}>
+              <Grid item m={1}>
                 <Button
                   component="label"
                   sx={{ color: "#079902", borderColor: "##079902" , backgroundColor : '#ffff' }}
@@ -133,7 +133,7 @@ export default function Share() {
                 </Button>
               </Grid>
 
-              <Grid item m={2}>
+              <Grid item m={1}>
                 <Button
                   component="label"
                   sx={{ color: "#023499", borderColor: "#023499" , backgroundColor : '#ffff' }}
@@ -144,7 +144,7 @@ export default function Share() {
                   <VisuallyHiddenInput />
                 </Button>
               </Grid>
-              <Grid item m={2}>
+              <Grid item m={1}>
                 <Button
                   component="label"
                   sx={{ color: "#aeba02", borderColor: "#aeba02" , backgroundColor : '#ffff' }}
@@ -156,9 +156,12 @@ export default function Share() {
                 </Button>
               </Grid>
             </Grid>
-            <Button variant="contained"  type="submit">
+            <Grid item xs={12} >
+               <Button variant="contained"  type="submit">
               Share
             </Button>
+            </Grid>
+           
           </form>
         </Grid>
       </Grid>{" "}

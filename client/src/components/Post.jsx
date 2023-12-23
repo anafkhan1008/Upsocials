@@ -51,7 +51,7 @@ export default function Post({ post }) {
 
   return (
     <>
-    <Card className="post" sx={{ boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)' }}>
+    <Card elevation={1} className="post" >
       <CardHeader sx={{background : "white"}}
       
         avatar= {<Link to = {`/profile/${user.username}`}> 
