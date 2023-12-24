@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
+const Comment = require("../models/Comment")
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
@@ -42,6 +43,63 @@ router.post('/upload', upload.single('image'), async (req, res) => {
     res.status(200).json({ imageUrl: req.file.location });
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+//comment route
+
+router.post('/:id/comment', async (req, res) => {
+  const postId = req.params.id;
+
+  const newComment = new Comment({
+    userId: req.body.userId, 
+    text: req.body.text, 
+  });
+
+  router.get('/:postId/comments/all', async (req, res) => {
+    const postId = req.params.postId;
+  
+    try {
+      const post = await Post.findById(postId);
+  
+      if (!post) {
+        return res.status(404).json({ error: 'Post not found' });
+      }
+  
+      const comments = post.comments; // Get all comments from the post
+  
+      res.status(200).json({ comments });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to fetch comments' });
+    }
+  });
+
+
+ 
+
+
+
+  try { 
+    const savedComment = await newComment.save();
+    const post = await Post.findById(postId);
+    console.log(post)
+    console.log(savedComment._id)
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    if (!savedComment._id) {
+      return res.status(450).json({ error: 'Comment missing _id' });
+    }
+    post.comments.push(savedComment);
+    await post.save();
+
+    res.status(200).json({
+      response: 'The comment is saved successfully',
+      comment: savedComment,
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to save the comment' });
   }
 });
 

@@ -22,6 +22,7 @@ export default function Post({ post }) {
   const [user, setUser] = useState({});
   const { user: currentUser } = useContext(AuthContext);
   const [open , setOpen] = useState(false);
+  const len = post.comments.length;
 
   useEffect(() => {
     setIsLiked(post.likes.includes(currentUser._id));
@@ -96,14 +97,22 @@ export default function Post({ post }) {
         </IconButton>
         <Typography variant="body2" component="span" className="postLikeCounter">{like} people like it</Typography>
        </div>
-
-        <IconButton onClick={()=>{setOpen(!open)}} >
+       <div>
+ {
+            len > 0 ?
+            <Typography variant="body2" component="span" className="postLikeCounter">{len} people commented</Typography> : ""
+          }
+            <IconButton onClick={()=>{setOpen(!open)}} >
+          
         <CommentIcon sx={{ color: open ? '#3f0169' : 'gray' }} />
         </IconButton>
+       </div>
+         
+      
       
       </div>
-    </Card>
-    {open ? (<Comment/>) : ("")}
+    </Card >
+    {open ? (<Comment post={post}/>) : ("")}
     </>
   );
 }
